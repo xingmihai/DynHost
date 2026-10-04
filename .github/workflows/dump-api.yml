@@ -47,15 +47,19 @@ jobs:
       - name: javap dump
         run: |
           cd dl
+          # 解压所有内嵌 jar（aar/classes.jar 等）
+          for j in $(find . -name "*.jar"); do
+            d="x_$(echo "$j" | tr '/' '_' | sed 's/\.jar$//')"
+            mkdir -p "$d" && unzip -oq "$j" -d "$d" || true
+          done
+          echo "--- class count ---"
+          find . -name "*.class" | wc -l
           CP=$(find . -name "*.jar" | tr '\n' ':')
           echo "CP=$CP"
-          CLASSES=$(find . -name "*.class" | sed 's|^\./[^/]*/||; s|\.class$||; s|/|.|g' | sort)
+          CLASSES=$(find . -name "*.class" | sed 's|\.class$||; s|^\./||; s|/|.|g' | sort -u)
           echo "$CLASSES" > classes.txt
-          echo "$CLASSES" | wc -l
+          wc -l classes.txt
           {
-            echo "===== DL TREE ====="
-            find . -maxdepth 3 | head -40
-            echo
             echo "===== ALL CLASSES ====="
             cat classes.txt
             echo
