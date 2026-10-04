@@ -31,66 +31,68 @@ unzip:  cannot find zipfile directory in one of ./api-102.0.0.jar or
 + find . -name '*.class'
 + wc -l
 27
+++ find . -maxdepth 1 -type d -name 'x_*'
+++ tr '\n' :
 ++ find . -name '*.jar'
 ++ tr '\n' :
-+ CP=./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar:
-++ find . -name '*.class'
-++ sed 's|\.class$||; s|^\./||; s|/|.|g'
++ CP=./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar:
+++ find . -path './x_*/*' -name '*.class'
+++ sed 's|\.class$||; s|^\./||; s|^[^/]*/||; s|/|.|g'
 ++ sort -u
-+ CLASSES='x_._aar_classes.io.github.libxposed.api.XposedInterface
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Chain
-x_._aar_classes.io.github.libxposed.api.XposedInterface$CtorInvoker
-x_._aar_classes.io.github.libxposed.api.XposedInterface$ExceptionMode
-x_._aar_classes.io.github.libxposed.api.XposedInterface$HookBuilder
-x_._aar_classes.io.github.libxposed.api.XposedInterface$HookHandle
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Hooker
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Chain
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Origin
-x_._aar_classes.io.github.libxposed.api.XposedInterfaceWrapper
-x_._aar_classes.io.github.libxposed.api.XposedModule
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadedParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadingParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageReadyParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam
-x_._aar_classes.io.github.libxposed.api.error.HookFailedError
-x_._aar_classes.io.github.libxposed.api.error.XposedFrameworkError
-x_._aar_lint.io.github.libxposed.lint.InternalApiDetector
-x_._aar_lint.io.github.libxposed.lint.InternalApiDetector$1
-x_._aar_lint.io.github.libxposed.lint.LibXposedIssueRegistry
-x_._aar_lint.io.github.libxposed.lint.SinceApiDetector
-x_._aar_lint.io.github.libxposed.lint.SinceApiDetector$1'
-+ printf '%s\n' 'x_._aar_classes.io.github.libxposed.api.XposedInterface
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Chain
-x_._aar_classes.io.github.libxposed.api.XposedInterface$CtorInvoker
-x_._aar_classes.io.github.libxposed.api.XposedInterface$ExceptionMode
-x_._aar_classes.io.github.libxposed.api.XposedInterface$HookBuilder
-x_._aar_classes.io.github.libxposed.api.XposedInterface$HookHandle
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Hooker
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Chain
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Origin
-x_._aar_classes.io.github.libxposed.api.XposedInterfaceWrapper
-x_._aar_classes.io.github.libxposed.api.XposedModule
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadedParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadingParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageReadyParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam
-x_._aar_classes.io.github.libxposed.api.error.HookFailedError
-x_._aar_classes.io.github.libxposed.api.error.XposedFrameworkError
-x_._aar_lint.io.github.libxposed.lint.InternalApiDetector
-x_._aar_lint.io.github.libxposed.lint.InternalApiDetector$1
-x_._aar_lint.io.github.libxposed.lint.LibXposedIssueRegistry
-x_._aar_lint.io.github.libxposed.lint.SinceApiDetector
-x_._aar_lint.io.github.libxposed.lint.SinceApiDetector$1'
++ CLASSES='io.github.libxposed.api.XposedInterface
+io.github.libxposed.api.XposedInterface$Chain
+io.github.libxposed.api.XposedInterface$CtorInvoker
+io.github.libxposed.api.XposedInterface$ExceptionMode
+io.github.libxposed.api.XposedInterface$HookBuilder
+io.github.libxposed.api.XposedInterface$HookHandle
+io.github.libxposed.api.XposedInterface$Hooker
+io.github.libxposed.api.XposedInterface$Invoker
+io.github.libxposed.api.XposedInterface$Invoker$Type
+io.github.libxposed.api.XposedInterface$Invoker$Type$Chain
+io.github.libxposed.api.XposedInterface$Invoker$Type$Origin
+io.github.libxposed.api.XposedInterfaceWrapper
+io.github.libxposed.api.XposedModule
+io.github.libxposed.api.XposedModuleInterface
+io.github.libxposed.api.XposedModuleInterface$HotReloadedParam
+io.github.libxposed.api.XposedModuleInterface$HotReloadingParam
+io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam
+io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam
+io.github.libxposed.api.XposedModuleInterface$PackageReadyParam
+io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam
+io.github.libxposed.api.error.HookFailedError
+io.github.libxposed.api.error.XposedFrameworkError
+io.github.libxposed.lint.InternalApiDetector
+io.github.libxposed.lint.InternalApiDetector$1
+io.github.libxposed.lint.LibXposedIssueRegistry
+io.github.libxposed.lint.SinceApiDetector
+io.github.libxposed.lint.SinceApiDetector$1'
++ printf '%s\n' 'io.github.libxposed.api.XposedInterface
+io.github.libxposed.api.XposedInterface$Chain
+io.github.libxposed.api.XposedInterface$CtorInvoker
+io.github.libxposed.api.XposedInterface$ExceptionMode
+io.github.libxposed.api.XposedInterface$HookBuilder
+io.github.libxposed.api.XposedInterface$HookHandle
+io.github.libxposed.api.XposedInterface$Hooker
+io.github.libxposed.api.XposedInterface$Invoker
+io.github.libxposed.api.XposedInterface$Invoker$Type
+io.github.libxposed.api.XposedInterface$Invoker$Type$Chain
+io.github.libxposed.api.XposedInterface$Invoker$Type$Origin
+io.github.libxposed.api.XposedInterfaceWrapper
+io.github.libxposed.api.XposedModule
+io.github.libxposed.api.XposedModuleInterface
+io.github.libxposed.api.XposedModuleInterface$HotReloadedParam
+io.github.libxposed.api.XposedModuleInterface$HotReloadingParam
+io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam
+io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam
+io.github.libxposed.api.XposedModuleInterface$PackageReadyParam
+io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam
+io.github.libxposed.api.error.HookFailedError
+io.github.libxposed.api.error.XposedFrameworkError
+io.github.libxposed.lint.InternalApiDetector
+io.github.libxposed.lint.InternalApiDetector$1
+io.github.libxposed.lint.LibXposedIssueRegistry
+io.github.libxposed.lint.SinceApiDetector
+io.github.libxposed.lint.SinceApiDetector$1'
 + wc -l classes.txt
 27 classes.txt
 + echo '===== ALL CLASSES ====='
@@ -98,196 +100,373 @@ x_._aar_lint.io.github.libxposed.lint.SinceApiDetector$1'
 + echo
 + echo '===== SIGNATURES ====='
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected x_._aar_classes.io.github.libxposed.api.XposedInterface
++ echo '----- io.github.libxposed.api.XposedInterface -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected io.github.libxposed.api.XposedInterface
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface$Chain -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedInterface$Chain'
++ echo '----- io.github.libxposed.api.XposedInterface$Chain -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedInterface$Chain'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface$CtorInvoker -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedInterface$CtorInvoker'
++ echo '----- io.github.libxposed.api.XposedInterface$CtorInvoker -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedInterface$CtorInvoker'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface$ExceptionMode -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedInterface$ExceptionMode'
++ echo '----- io.github.libxposed.api.XposedInterface$ExceptionMode -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedInterface$ExceptionMode'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface$HookBuilder -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedInterface$HookBuilder'
++ echo '----- io.github.libxposed.api.XposedInterface$HookBuilder -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedInterface$HookBuilder'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface$HookHandle -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedInterface$HookHandle'
++ echo '----- io.github.libxposed.api.XposedInterface$HookHandle -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedInterface$HookHandle'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface$Hooker -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedInterface$Hooker'
++ echo '----- io.github.libxposed.api.XposedInterface$Hooker -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedInterface$Hooker'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker'
++ echo '----- io.github.libxposed.api.XposedInterface$Invoker -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedInterface$Invoker'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type'
++ echo '----- io.github.libxposed.api.XposedInterface$Invoker$Type -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedInterface$Invoker$Type'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Chain -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Chain'
++ echo '----- io.github.libxposed.api.XposedInterface$Invoker$Type$Chain -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedInterface$Invoker$Type$Chain'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Origin -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Origin'
++ echo '----- io.github.libxposed.api.XposedInterface$Invoker$Type$Origin -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedInterface$Invoker$Type$Origin'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedInterfaceWrapper -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected x_._aar_classes.io.github.libxposed.api.XposedInterfaceWrapper
++ echo '----- io.github.libxposed.api.XposedInterfaceWrapper -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected io.github.libxposed.api.XposedInterfaceWrapper
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedModule -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected x_._aar_classes.io.github.libxposed.api.XposedModule
++ echo '----- io.github.libxposed.api.XposedModule -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected io.github.libxposed.api.XposedModule
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedModuleInterface -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected x_._aar_classes.io.github.libxposed.api.XposedModuleInterface
++ echo '----- io.github.libxposed.api.XposedModuleInterface -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected io.github.libxposed.api.XposedModuleInterface
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadedParam -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadedParam'
++ echo '----- io.github.libxposed.api.XposedModuleInterface$HotReloadedParam -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedModuleInterface$HotReloadedParam'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadingParam -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadingParam'
++ echo '----- io.github.libxposed.api.XposedModuleInterface$HotReloadingParam -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedModuleInterface$HotReloadingParam'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam'
++ echo '----- io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam'
++ echo '----- io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageReadyParam -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageReadyParam'
++ echo '----- io.github.libxposed.api.XposedModuleInterface$PackageReadyParam -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedModuleInterface$PackageReadyParam'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam'
++ echo '----- io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam'
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.error.HookFailedError -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected x_._aar_classes.io.github.libxposed.api.error.HookFailedError
++ echo '----- io.github.libxposed.api.error.HookFailedError -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected io.github.libxposed.api.error.HookFailedError
 + for c in $CLASSES
-+ echo '----- x_._aar_classes.io.github.libxposed.api.error.XposedFrameworkError -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected x_._aar_classes.io.github.libxposed.api.error.XposedFrameworkError
++ echo '----- io.github.libxposed.api.error.XposedFrameworkError -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected io.github.libxposed.api.error.XposedFrameworkError
 + for c in $CLASSES
-+ echo '----- x_._aar_lint.io.github.libxposed.lint.InternalApiDetector -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected x_._aar_lint.io.github.libxposed.lint.InternalApiDetector
++ echo '----- io.github.libxposed.lint.InternalApiDetector -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected io.github.libxposed.lint.InternalApiDetector
 + for c in $CLASSES
-+ echo '----- x_._aar_lint.io.github.libxposed.lint.InternalApiDetector$1 -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_lint.io.github.libxposed.lint.InternalApiDetector$1'
++ echo '----- io.github.libxposed.lint.InternalApiDetector$1 -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.lint.InternalApiDetector$1'
 + for c in $CLASSES
-+ echo '----- x_._aar_lint.io.github.libxposed.lint.LibXposedIssueRegistry -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected x_._aar_lint.io.github.libxposed.lint.LibXposedIssueRegistry
++ echo '----- io.github.libxposed.lint.LibXposedIssueRegistry -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected io.github.libxposed.lint.LibXposedIssueRegistry
 + for c in $CLASSES
-+ echo '----- x_._aar_lint.io.github.libxposed.lint.SinceApiDetector -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected x_._aar_lint.io.github.libxposed.lint.SinceApiDetector
++ echo '----- io.github.libxposed.lint.SinceApiDetector -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected io.github.libxposed.lint.SinceApiDetector
 + for c in $CLASSES
-+ echo '----- x_._aar_lint.io.github.libxposed.lint.SinceApiDetector$1 -----'
-+ javap -classpath ./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'x_._aar_lint.io.github.libxposed.lint.SinceApiDetector$1'
++ echo '----- io.github.libxposed.lint.SinceApiDetector$1 -----'
++ javap -classpath ./x_._aar_lint:./x_._api-102.0.0:./x_._aar_classes:./aar/lint.jar:./aar/classes.jar:./api-102.0.0.jar: -protected 'io.github.libxposed.lint.SinceApiDetector$1'
 + wc -c dump.txt
-8949 dump.txt
+19084 dump.txt
 ===== ALL CLASSES =====
-x_._aar_classes.io.github.libxposed.api.XposedInterface
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Chain
-x_._aar_classes.io.github.libxposed.api.XposedInterface$CtorInvoker
-x_._aar_classes.io.github.libxposed.api.XposedInterface$ExceptionMode
-x_._aar_classes.io.github.libxposed.api.XposedInterface$HookBuilder
-x_._aar_classes.io.github.libxposed.api.XposedInterface$HookHandle
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Hooker
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Chain
-x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Origin
-x_._aar_classes.io.github.libxposed.api.XposedInterfaceWrapper
-x_._aar_classes.io.github.libxposed.api.XposedModule
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadedParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadingParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageReadyParam
-x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam
-x_._aar_classes.io.github.libxposed.api.error.HookFailedError
-x_._aar_classes.io.github.libxposed.api.error.XposedFrameworkError
-x_._aar_lint.io.github.libxposed.lint.InternalApiDetector
-x_._aar_lint.io.github.libxposed.lint.InternalApiDetector$1
-x_._aar_lint.io.github.libxposed.lint.LibXposedIssueRegistry
-x_._aar_lint.io.github.libxposed.lint.SinceApiDetector
-x_._aar_lint.io.github.libxposed.lint.SinceApiDetector$1
+io.github.libxposed.api.XposedInterface
+io.github.libxposed.api.XposedInterface$Chain
+io.github.libxposed.api.XposedInterface$CtorInvoker
+io.github.libxposed.api.XposedInterface$ExceptionMode
+io.github.libxposed.api.XposedInterface$HookBuilder
+io.github.libxposed.api.XposedInterface$HookHandle
+io.github.libxposed.api.XposedInterface$Hooker
+io.github.libxposed.api.XposedInterface$Invoker
+io.github.libxposed.api.XposedInterface$Invoker$Type
+io.github.libxposed.api.XposedInterface$Invoker$Type$Chain
+io.github.libxposed.api.XposedInterface$Invoker$Type$Origin
+io.github.libxposed.api.XposedInterfaceWrapper
+io.github.libxposed.api.XposedModule
+io.github.libxposed.api.XposedModuleInterface
+io.github.libxposed.api.XposedModuleInterface$HotReloadedParam
+io.github.libxposed.api.XposedModuleInterface$HotReloadingParam
+io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam
+io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam
+io.github.libxposed.api.XposedModuleInterface$PackageReadyParam
+io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam
+io.github.libxposed.api.error.HookFailedError
+io.github.libxposed.api.error.XposedFrameworkError
+io.github.libxposed.lint.InternalApiDetector
+io.github.libxposed.lint.InternalApiDetector$1
+io.github.libxposed.lint.LibXposedIssueRegistry
+io.github.libxposed.lint.SinceApiDetector
+io.github.libxposed.lint.SinceApiDetector$1
 
 ===== SIGNATURES =====
------ x_._aar_classes.io.github.libxposed.api.XposedInterface -----
+----- io.github.libxposed.api.XposedInterface -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterface$Chain -----
+Compiled from "XposedInterface.java"
+public interface io.github.libxposed.api.XposedInterface {
+  public static final int API_101;
+  public static final int API_102;
+  public static final int LIB_API;
+  public static final long PROP_CAP_SYSTEM;
+  public static final long PROP_CAP_REMOTE;
+  public static final long PROP_RT_API_PROTECTION;
+  public static final int PRIORITY_DEFAULT;
+  public static final int PRIORITY_LOWEST;
+  public static final int PRIORITY_HIGHEST;
+  public default int getApiVersion();
+  public abstract java.lang.String getFrameworkName();
+  public abstract java.lang.String getFrameworkVersion();
+  public abstract long getFrameworkVersionCode();
+  public abstract long getFrameworkProperties();
+  public abstract io.github.libxposed.api.XposedInterface$HookBuilder hook(java.lang.reflect.Executable);
+  public abstract io.github.libxposed.api.XposedInterface$HookBuilder hookClassInitializer(java.lang.Class<?>);
+  public abstract boolean deoptimize(java.lang.reflect.Executable);
+  public abstract io.github.libxposed.api.XposedInterface$Invoker<?, java.lang.reflect.Method> getInvoker(java.lang.reflect.Method);
+  public abstract <T> io.github.libxposed.api.XposedInterface$CtorInvoker<T> getInvoker(java.lang.reflect.Constructor<T>);
+  public abstract void log(int, java.lang.String, java.lang.String);
+  public abstract void log(int, java.lang.String, java.lang.String, java.lang.Throwable);
+  public abstract android.content.pm.ApplicationInfo getModuleApplicationInfo();
+  public abstract android.content.SharedPreferences getRemotePreferences(java.lang.String);
+  public abstract java.lang.String[] listRemoteFiles();
+  public abstract android.os.ParcelFileDescriptor openRemoteFile(java.lang.String) throws java.io.FileNotFoundException;
+}
+----- io.github.libxposed.api.XposedInterface$Chain -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface$Chain: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterface$CtorInvoker -----
+Compiled from "XposedInterface.java"
+public interface io.github.libxposed.api.XposedInterface$Chain {
+  public abstract java.lang.reflect.Executable getExecutable();
+  public abstract java.lang.Object getThisObject();
+  public abstract java.util.List<java.lang.Object> getArgs();
+  public abstract java.lang.Object getArg(int) throws java.lang.IndexOutOfBoundsException, java.lang.ClassCastException;
+  public abstract java.lang.Object proceed() throws java.lang.Throwable;
+  public abstract java.lang.Object proceed(java.lang.Object[]) throws java.lang.Throwable;
+  public abstract java.lang.Object proceedWith(java.lang.Object) throws java.lang.Throwable;
+  public abstract java.lang.Object proceedWith(java.lang.Object, java.lang.Object[]) throws java.lang.Throwable;
+}
+----- io.github.libxposed.api.XposedInterface$CtorInvoker -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface$CtorInvoker: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterface$ExceptionMode -----
+Compiled from "XposedInterface.java"
+public interface io.github.libxposed.api.XposedInterface$CtorInvoker<T> extends io.github.libxposed.api.XposedInterface$Invoker<io.github.libxposed.api.XposedInterface$CtorInvoker<T>, java.lang.reflect.Constructor<T>> {
+  public abstract T newInstance(java.lang.Object...) throws java.lang.reflect.InvocationTargetException, java.lang.IllegalArgumentException, java.lang.IllegalAccessException, java.lang.InstantiationException;
+  public abstract <U> U newInstanceSpecial(java.lang.Class<U>, java.lang.Object...) throws java.lang.reflect.InvocationTargetException, java.lang.IllegalArgumentException, java.lang.IllegalAccessException, java.lang.InstantiationException;
+}
+----- io.github.libxposed.api.XposedInterface$ExceptionMode -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface$ExceptionMode: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterface$HookBuilder -----
+Compiled from "XposedInterface.java"
+public final class io.github.libxposed.api.XposedInterface$ExceptionMode extends java.lang.Enum<io.github.libxposed.api.XposedInterface$ExceptionMode> {
+  public static final io.github.libxposed.api.XposedInterface$ExceptionMode DEFAULT;
+  public static final io.github.libxposed.api.XposedInterface$ExceptionMode PROTECTIVE;
+  public static final io.github.libxposed.api.XposedInterface$ExceptionMode PASSTHROUGH;
+  public static io.github.libxposed.api.XposedInterface$ExceptionMode[] values();
+  public static io.github.libxposed.api.XposedInterface$ExceptionMode valueOf(java.lang.String);
+}
+----- io.github.libxposed.api.XposedInterface$HookBuilder -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface$HookBuilder: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterface$HookHandle -----
+Compiled from "XposedInterface.java"
+public interface io.github.libxposed.api.XposedInterface$HookBuilder {
+  public abstract io.github.libxposed.api.XposedInterface$HookBuilder setPriority(int);
+  public abstract io.github.libxposed.api.XposedInterface$HookBuilder setExceptionMode(io.github.libxposed.api.XposedInterface$ExceptionMode);
+  public abstract io.github.libxposed.api.XposedInterface$HookHandle intercept(io.github.libxposed.api.XposedInterface$Hooker);
+  public abstract io.github.libxposed.api.XposedInterface$HookBuilder setId(java.lang.String);
+}
+----- io.github.libxposed.api.XposedInterface$HookHandle -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface$HookHandle: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterface$Hooker -----
+Compiled from "XposedInterface.java"
+public interface io.github.libxposed.api.XposedInterface$HookHandle {
+  public abstract java.lang.reflect.Executable getExecutable();
+  public abstract void unhook();
+  public abstract java.lang.String getId();
+  public abstract io.github.libxposed.api.XposedInterface$HookHandle replaceHook(io.github.libxposed.api.XposedInterface$Hooker);
+}
+----- io.github.libxposed.api.XposedInterface$Hooker -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface$Hooker: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker -----
+Compiled from "XposedInterface.java"
+public interface io.github.libxposed.api.XposedInterface$Hooker {
+  public abstract java.lang.Object intercept(io.github.libxposed.api.XposedInterface$Chain) throws java.lang.Throwable;
+}
+----- io.github.libxposed.api.XposedInterface$Invoker -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type -----
+Compiled from "XposedInterface.java"
+public interface io.github.libxposed.api.XposedInterface$Invoker<T extends io.github.libxposed.api.XposedInterface$Invoker<T, U>, U extends java.lang.reflect.Executable> {
+  public abstract T setType(io.github.libxposed.api.XposedInterface$Invoker$Type);
+  public abstract java.lang.Object invoke(java.lang.Object, java.lang.Object...) throws java.lang.reflect.InvocationTargetException, java.lang.IllegalArgumentException, java.lang.IllegalAccessException;
+  public abstract java.lang.Object invokeSpecial(java.lang.Object, java.lang.Object...) throws java.lang.reflect.InvocationTargetException, java.lang.IllegalArgumentException, java.lang.IllegalAccessException;
+}
+----- io.github.libxposed.api.XposedInterface$Invoker$Type -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Chain -----
+Compiled from "XposedInterface.java"
+public interface io.github.libxposed.api.XposedInterface$Invoker$Type {
+  public static final io.github.libxposed.api.XposedInterface$Invoker$Type$Origin ORIGIN;
+}
+----- io.github.libxposed.api.XposedInterface$Invoker$Type$Chain -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Chain: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Origin -----
+Compiled from "XposedInterface.java"
+public final class io.github.libxposed.api.XposedInterface$Invoker$Type$Chain extends java.lang.Record implements io.github.libxposed.api.XposedInterface$Invoker$Type {
+  public static final io.github.libxposed.api.XposedInterface$Invoker$Type$Chain FULL;
+  public io.github.libxposed.api.XposedInterface$Invoker$Type$Chain(int);
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+  public int maxPriority();
+}
+----- io.github.libxposed.api.XposedInterface$Invoker$Type$Origin -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterface$Invoker$Type$Origin: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedInterfaceWrapper -----
+Compiled from "XposedInterface.java"
+public final class io.github.libxposed.api.XposedInterface$Invoker$Type$Origin extends java.lang.Record implements io.github.libxposed.api.XposedInterface$Invoker$Type {
+  public io.github.libxposed.api.XposedInterface$Invoker$Type$Origin();
+  public final java.lang.String toString();
+  public final int hashCode();
+  public final boolean equals(java.lang.Object);
+}
+----- io.github.libxposed.api.XposedInterfaceWrapper -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedInterfaceWrapper: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedModule -----
+Compiled from "XposedInterfaceWrapper.java"
+public class io.github.libxposed.api.XposedInterfaceWrapper implements io.github.libxposed.api.XposedInterface {
+  public io.github.libxposed.api.XposedInterfaceWrapper();
+  public final void attachFramework(io.github.libxposed.api.XposedInterface, java.lang.Runnable);
+  public final void detach();
+  public final int getApiVersion();
+  public final java.lang.String getFrameworkName();
+  public final java.lang.String getFrameworkVersion();
+  public final long getFrameworkVersionCode();
+  public final long getFrameworkProperties();
+  public final io.github.libxposed.api.XposedInterface$HookBuilder hook(java.lang.reflect.Executable);
+  public final io.github.libxposed.api.XposedInterface$HookBuilder hookClassInitializer(java.lang.Class<?>);
+  public final boolean deoptimize(java.lang.reflect.Executable);
+  public final io.github.libxposed.api.XposedInterface$Invoker<?, java.lang.reflect.Method> getInvoker(java.lang.reflect.Method);
+  public final <T> io.github.libxposed.api.XposedInterface$CtorInvoker<T> getInvoker(java.lang.reflect.Constructor<T>);
+  public final void log(int, java.lang.String, java.lang.String);
+  public final void log(int, java.lang.String, java.lang.String, java.lang.Throwable);
+  public final android.content.SharedPreferences getRemotePreferences(java.lang.String);
+  public final android.content.pm.ApplicationInfo getModuleApplicationInfo();
+  public final java.lang.String[] listRemoteFiles();
+  public final android.os.ParcelFileDescriptor openRemoteFile(java.lang.String) throws java.io.FileNotFoundException;
+}
+----- io.github.libxposed.api.XposedModule -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedModule: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedModuleInterface -----
+Compiled from "XposedModule.java"
+public abstract class io.github.libxposed.api.XposedModule extends io.github.libxposed.api.XposedInterfaceWrapper implements io.github.libxposed.api.XposedModuleInterface {
+  public io.github.libxposed.api.XposedModule();
+}
+----- io.github.libxposed.api.XposedModuleInterface -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedModuleInterface: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadedParam -----
+Compiled from "XposedModuleInterface.java"
+public interface io.github.libxposed.api.XposedModuleInterface {
+  public default void onModuleLoaded(io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam);
+  public default void onPackageLoaded(io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam);
+  public default void onPackageReady(io.github.libxposed.api.XposedModuleInterface$PackageReadyParam);
+  public default void onSystemServerStarting(io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam);
+  public default boolean onHotReloading(io.github.libxposed.api.XposedModuleInterface$HotReloadingParam);
+  public default void onHotReloaded(io.github.libxposed.api.XposedModuleInterface$HotReloadedParam);
+}
+----- io.github.libxposed.api.XposedModuleInterface$HotReloadedParam -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadedParam: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadingParam -----
+Compiled from "XposedModuleInterface.java"
+public interface io.github.libxposed.api.XposedModuleInterface$HotReloadedParam extends io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam {
+  public abstract android.os.Bundle getExtras();
+  public abstract java.lang.Object getSavedInstanceState();
+  public abstract java.util.List<io.github.libxposed.api.XposedInterface$HookHandle> getOldHookHandles();
+}
+----- io.github.libxposed.api.XposedModuleInterface$HotReloadingParam -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$HotReloadingParam: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam -----
+Compiled from "XposedModuleInterface.java"
+public interface io.github.libxposed.api.XposedModuleInterface$HotReloadingParam {
+  public abstract android.os.Bundle getExtras();
+  public abstract void setSavedInstanceState(java.lang.Object);
+}
+----- io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam -----
+Compiled from "XposedModuleInterface.java"
+public interface io.github.libxposed.api.XposedModuleInterface$ModuleLoadedParam {
+  public abstract boolean isSystemServer();
+  public abstract java.lang.String getProcessName();
+}
+----- io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageReadyParam -----
+Compiled from "XposedModuleInterface.java"
+public interface io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam {
+  public abstract java.lang.String getPackageName();
+  public abstract android.content.pm.ApplicationInfo getApplicationInfo();
+  public abstract boolean isFirstPackage();
+  public abstract java.lang.ClassLoader getDefaultClassLoader();
+}
+----- io.github.libxposed.api.XposedModuleInterface$PackageReadyParam -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$PackageReadyParam: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam -----
+Compiled from "XposedModuleInterface.java"
+public interface io.github.libxposed.api.XposedModuleInterface$PackageReadyParam extends io.github.libxposed.api.XposedModuleInterface$PackageLoadedParam {
+  public abstract java.lang.ClassLoader getClassLoader();
+  public abstract android.app.AppComponentFactory getAppComponentFactory();
+}
+----- io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.error.HookFailedError -----
+Compiled from "XposedModuleInterface.java"
+public interface io.github.libxposed.api.XposedModuleInterface$SystemServerStartingParam {
+  public abstract java.lang.ClassLoader getClassLoader();
+}
+----- io.github.libxposed.api.error.HookFailedError -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.error.HookFailedError: zip END header not found
------ x_._aar_classes.io.github.libxposed.api.error.XposedFrameworkError -----
+Compiled from "HookFailedError.java"
+public class io.github.libxposed.api.error.HookFailedError extends io.github.libxposed.api.error.XposedFrameworkError {
+  public io.github.libxposed.api.error.HookFailedError(java.lang.String);
+  public io.github.libxposed.api.error.HookFailedError(java.lang.String, java.lang.Throwable);
+  public io.github.libxposed.api.error.HookFailedError(java.lang.Throwable);
+}
+----- io.github.libxposed.api.error.XposedFrameworkError -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_classes.io.github.libxposed.api.error.XposedFrameworkError: zip END header not found
------ x_._aar_lint.io.github.libxposed.lint.InternalApiDetector -----
+Compiled from "XposedFrameworkError.java"
+public class io.github.libxposed.api.error.XposedFrameworkError extends java.lang.Error {
+  public io.github.libxposed.api.error.XposedFrameworkError(java.lang.String);
+  public io.github.libxposed.api.error.XposedFrameworkError(java.lang.String, java.lang.Throwable);
+  public io.github.libxposed.api.error.XposedFrameworkError(java.lang.Throwable);
+}
+----- io.github.libxposed.lint.InternalApiDetector -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_lint.io.github.libxposed.lint.InternalApiDetector: zip END header not found
------ x_._aar_lint.io.github.libxposed.lint.InternalApiDetector$1 -----
+Compiled from "InternalApiDetector.java"
+public final class io.github.libxposed.lint.InternalApiDetector extends com.android.tools.lint.detector.api.Detector implements com.android.tools.lint.detector.api.SourceCodeScanner {
+  public io.github.libxposed.lint.InternalApiDetector();
+  public java.util.List<java.lang.Class<? extends org.jetbrains.uast.UElement>> getApplicableUastTypes();
+  public com.android.tools.lint.client.api.UElementHandler createUastHandler(com.android.tools.lint.detector.api.JavaContext);
+}
+----- io.github.libxposed.lint.InternalApiDetector$1 -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_lint.io.github.libxposed.lint.InternalApiDetector$1: zip END header not found
------ x_._aar_lint.io.github.libxposed.lint.LibXposedIssueRegistry -----
+Compiled from "InternalApiDetector.java"
+class io.github.libxposed.lint.InternalApiDetector$1 extends com.android.tools.lint.client.api.UElementHandler {
+  public void visitCallExpression(org.jetbrains.uast.UCallExpression);
+  public void visitSimpleNameReferenceExpression(org.jetbrains.uast.USimpleNameReferenceExpression);
+}
+----- io.github.libxposed.lint.LibXposedIssueRegistry -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_lint.io.github.libxposed.lint.LibXposedIssueRegistry: zip END header not found
------ x_._aar_lint.io.github.libxposed.lint.SinceApiDetector -----
+Compiled from "LibXposedIssueRegistry.java"
+public final class io.github.libxposed.lint.LibXposedIssueRegistry extends com.android.tools.lint.client.api.IssueRegistry {
+  public io.github.libxposed.lint.LibXposedIssueRegistry();
+  public java.util.List<com.android.tools.lint.detector.api.Issue> getIssues();
+  public com.android.tools.lint.client.api.Vendor getVendor();
+  public int getApi();
+}
+----- io.github.libxposed.lint.SinceApiDetector -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_lint.io.github.libxposed.lint.SinceApiDetector: zip END header not found
------ x_._aar_lint.io.github.libxposed.lint.SinceApiDetector$1 -----
+Compiled from "SinceApiDetector.java"
+public final class io.github.libxposed.lint.SinceApiDetector extends com.android.tools.lint.detector.api.Detector implements com.android.tools.lint.detector.api.SourceCodeScanner {
+  public io.github.libxposed.lint.SinceApiDetector();
+  public java.util.List<java.lang.Class<? extends org.jetbrains.uast.UElement>> getApplicableUastTypes();
+  public com.android.tools.lint.client.api.UElementHandler createUastHandler(com.android.tools.lint.detector.api.JavaContext);
+}
+----- io.github.libxposed.lint.SinceApiDetector$1 -----
 Error: error reading ./api-102.0.0.jar; zip END header not found
-Error: IO error reading x_._aar_lint.io.github.libxposed.lint.SinceApiDetector$1: zip END header not found
+Compiled from "SinceApiDetector.java"
+class io.github.libxposed.lint.SinceApiDetector$1 extends com.android.tools.lint.client.api.UElementHandler {
+  public void visitCallExpression(org.jetbrains.uast.UCallExpression);
+  public void visitSimpleNameReferenceExpression(org.jetbrains.uast.USimpleNameReferenceExpression);
+}
