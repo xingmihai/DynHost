@@ -224,6 +224,8 @@ public final class ModuleManager {
             if (!ScopeMatcher.matches(p.scope, pkg)) continue;
             try {
                 ensureInstances(p, ModuleManager.class.getClassLoader());
+                LibXposedHost.sAppInfo = lpparam.appInfo;
+                refreshContext();
                 if (p.modern) {
                     // 新式 libxposed 模块：每进程一次 onModuleLoaded，随后 onPackageLoaded
                     Object loaded = LibXposedParams.moduleLoaded(
@@ -256,10 +258,17 @@ public final class ModuleManager {
     }
 
     private static android.content.pm.ApplicationInfo safeAppInfo() {
+        return LibXposedHost.sAppInfo;
+    }
+
+    /** 取当前进程的 Application，供 getRemotePreferences 使用 */
+    private static void refreshContext() {
         try {
-            return de.robv.android.xposed.AndroidAppHelper.currentApplicationInfo();
-        } catch (Throwable t) {
-            return null;
+            Class<?> at = Class.forName("android.app.ActivityThread");
+            Object app = at.getMethod("currentApplication").invoke(null);
+            LibXposedHost.sContext = (android.content.Context) app;
+        } catch (Throwable ignored) {
+            // 早期调用点还没有 Application，保持上一次的值即可
         }
     }
 

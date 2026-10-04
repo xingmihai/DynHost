@@ -13,7 +13,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-import de.robv.android.xposed.AndroidAppHelper;
 import de.robv.android.xposed.XC_MethodHook;
 import de.robv.android.xposed.XposedBridge;
 import io.github.libxposed.api.XposedInterface;
@@ -33,6 +32,10 @@ import io.github.libxposed.api.error.HookFailedError;
  * setResult —— 这样 "proceed 后改结果" 和 "不 proceed 直接替换" 两种写法都成立。
  */
 public class LibXposedHost implements XposedInterface {
+
+    /** 由 ModuleManager 在每次 handleLoadPackage 时填入当前进程的信息 */
+    public static volatile android.content.pm.ApplicationInfo sAppInfo;
+    public static volatile android.content.Context sContext;
 
     private final String pluginId;
 
@@ -100,19 +103,18 @@ public class LibXposedHost implements XposedInterface {
 
     @Override
     public ApplicationInfo getModuleApplicationInfo() {
-        try {
-            return AndroidAppHelper.currentApplicationInfo();
-        } catch (Throwable t) {
-            return null;
-        }
+        return sAppInfo;
     }
 
     @Override
     public SharedPreferences getRemotePreferences(String name) {
+        android.content.Context ctx = sContext;
+        if (ctx == null) return null;
         try {
-            return AndroidAppHelper.currentApplication()
-                    .getSharedPreferences("dynhost_" + pluginId + "_" + name, 0);
+            return ctx.getSharedPreferences("dynhost_" + pluginId + "_" + name, 0);
         } catch (Throwable t) {
+            XposedBridge.log("[DynHost/" + pluginId + "] getRemotePreferences failed");
+            XposedBridge.log(t);
             return null;
         }
     }
