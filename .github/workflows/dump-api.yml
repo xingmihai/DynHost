@@ -45,19 +45,19 @@ jobs:
           find . -name "*.class" | wc -l
 
       - name: javap dump
+        continue-on-error: true
         run: |
+          cat > dump.sh <<'EOS'
+          set -x
           cd dl
-          # 解压所有内嵌 jar（aar/classes.jar 等）
           for j in $(find . -name "*.jar"); do
             d="x_$(echo "$j" | tr '/' '_' | sed 's/\.jar$//')"
-            mkdir -p "$d" && unzip -oq "$j" -d "$d" || true
+            mkdir -p "$d" && unzip -oq "$j" -d "$d"
           done
-          echo "--- class count ---"
           find . -name "*.class" | wc -l
           CP=$(find . -name "*.jar" | tr '\n' ':')
-          echo "CP=$CP"
           CLASSES=$(find . -name "*.class" | sed 's|\.class$||; s|^\./||; s|/|.|g' | sort -u)
-          echo "$CLASSES" > classes.txt
+          printf '%s\n' "$CLASSES" > classes.txt
           wc -l classes.txt
           {
             echo "===== ALL CLASSES ====="
@@ -70,8 +70,13 @@ jobs:
             javap -classpath "$CP" -protected "$c" >> dump.txt 2>&1
           done
           wc -c dump.txt
+          EOS
+          bash dump.sh > trace.txt 2>&1 || true
+          cat trace.txt dl/dump.txt > full.txt 2>/dev/null || cp trace.txt full.txt
+          wc -c full.txt
 
       - name: Publish dump
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -92,7 +97,7 @@ jobs:
               except Exception as e:
                   print("api fail", method, path); return None
 
-          raw = open("dl/dump.txt", errors="replace").read()
+          raw = open("full.txt", errors="replace").read()
           parts = [raw[i:i+400000] for i in range(0, len(raw), 400000)]
           main = req("GET", "/repos/%s/git/ref/heads/main" % repo)
           req("POST", "/repos/%s/git/refs" % repo, {"ref": "refs/heads/ci-logs", "sha": main["object"]["sha"]})
