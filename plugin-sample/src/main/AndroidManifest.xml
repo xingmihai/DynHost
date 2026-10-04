@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <application android:label="DynHost Sample Plugin">
+        <meta-data android:name="xposedmodule" android:value="true" />
+        <meta-data android:name="xposeddescription" android:value="DynHost 示例插件：进入任一作用域 App 时弹 Toast" />
+        <meta-data android:name="xposedminversion" android:value="93" />
+        <!-- 插件的作用域由 dynmodule.json 决定，安装到目录即可，无需在管理器里勾选 -->
+    </application>
+</manifest>

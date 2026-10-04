@@ -1,0 +1,12 @@
+{
+  "id": "sample.apk",
+  "name": "示例插件（进入 App 弹 Toast）",
+  "enabled": true,
+  "loadInZygote": false,
+  "scope": [
+    "com.android.settings",
+    "com.tencent.mm",
+    "com.foo.*"
+  ],
+  "description": "把本 APK 丢到 /sdcard/DynModules 并在 DynHost 里同步即可生效"
+}

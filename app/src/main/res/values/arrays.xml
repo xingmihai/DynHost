@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 推荐作用域。宿主只需在管理器里勾一次；
+         想让插件覆盖哪些 App，就在这里（或管理器里）把那些 App 勾上。 -->
+    <string-array name="xposed_scope">
+        <item>android</item>
+    </string-array>
+</resources>

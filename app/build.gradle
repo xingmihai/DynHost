@@ -1,0 +1,41 @@
+plugins { id 'com.android.application' }
+
+android {
+    namespace 'com.example.dynhost'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.example.dynhost"
+        minSdk 26          // InMemoryDexClassLoader 需要 API 26+
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+    }
+
+    signingConfigs {
+        debug    // 使用 Gradle 自带的 debug keystore
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            // 默认用 debug keystore 签名，产物可直接 adb install。
+            // 若要正式发布，改成自己的 signingConfig 即可。
+            signingConfig signingConfigs.debug
+        }
+    }
+
+    // Xposed 模块常有 Lint 告警（HardcodedText / SetTextI18n 等），
+    // 不应让 release 构建因此中断。
+    lint {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
+    compileOptions { sourceCompatibility 17; targetCompatibility 17 }
+}
+
+dependencies {
+    implementation project(':api')
+    compileOnly 'de.robv.android.xposed:api:82'
+}
