@@ -35,14 +35,12 @@ jobs:
       - name: Extract
         run: |
           cd dl
-          if [ -f api.aar ]; then
-            mkdir -p aar && cd aar && unzip -oq ../api.aar && ls -R | head -20 && cd ..
-          fi
-          if [ -f api.jar ]; then
-            mkdir -p jar && cd jar && unzip -oq ../api.jar && cd ..
-          fi
-          find . -name "*.jar" -o -name "*.dex" | head
-          find . -name "*.class" | head -5
+          file *.jar *.aar || true
+          mkdir -p jar aar
+          unzip -oq api-102.0.0.jar  -d jar  || echo "jar unzip failed"
+          unzip -oq api-102.0.0.aar  -d aar  || echo "aar unzip failed"
+          ls -R aar | head -20
+          find . -name "classes.jar" -o -name "*.dex" | head
           echo "--- class count ---"
           find . -name "*.class" | wc -l
 
