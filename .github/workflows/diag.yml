@@ -50,10 +50,13 @@ jobs:
                   if n.endswith(".txt"):
                       text += z.read(n).decode("utf-8", "replace")
 
+          i = text.rfind("* What went wrong:")
+          block = text[i:i + 4000] if i >= 0 else ""
           errs = [l for l in text.splitlines()
-                  if "error:" in l or "FAILED" in l or "What went wrong" in l
-                  or "Could not" in l or "Couldn't" in l or l.strip().startswith(">")]
-          out = "\n".join(errs[:200])[:20000]
+                  if "error:" in l or "FAILED" in l or "Could not" in l
+                  or "Couldn't" in l or "requires" in l]
+          out = ("=== WHAT WENT WRONG ===\n" + block + "\n\n=== ERROR LINES ===\n"
+                 + "\n".join(errs[:150]))[:20000]
 
           main = req("/repos/%s/git/ref/heads/main" % repo)["object"]["sha"]
           try:
