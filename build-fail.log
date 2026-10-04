@@ -1,77 +1,65 @@
 === WHAT WENT WRONG ===
 * What went wrong:
-2026-10-04T13:57:57.9192334Z Execution failed for task ':app:compileDebugJavaWithJavac'.
-2026-10-04T13:57:57.9193327Z > Compilation failed; see the compiler output below.
-2026-10-04T13:57:57.9194774Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:16: error: cannot find symbol
-2026-10-04T13:57:57.9196265Z   import de.robv.android.xposed.AndroidAppHelper;
-2026-10-04T13:57:57.9197383Z                                ^
-2026-10-04T13:57:57.9198128Z     symbol:   class AndroidAppHelper
-2026-10-04T13:57:57.9198952Z     location: package de.robv.android.xposed
-2026-10-04T13:57:57.9200393Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:104: error: cannot find symbol
-2026-10-04T13:57:57.9204176Z               return AndroidAppHelper.currentApplicationInfo();
-2026-10-04T13:57:57.9205084Z                      ^
-2026-10-04T13:57:57.9205755Z     symbol:   variable AndroidAppHelper
-2026-10-04T13:57:57.9206523Z     location: class LibXposedHost
-2026-10-04T13:57:57.9208171Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:113: error: cannot find symbol
-2026-10-04T13:57:57.9220649Z               return AndroidAppHelper.currentApplication()
-2026-10-04T13:57:57.9264215Z                      ^
-2026-10-04T13:57:57.9287363Z     symbol:   variable AndroidAppHelper
-2026-10-04T13:57:57.9329920Z     location: class LibXposedHost
-2026-10-04T13:57:57.9331591Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/ModuleManager.java:260: error: cannot find symbol
-2026-10-04T13:57:57.9333232Z               return de.robv.android.xposed.AndroidAppHelper.currentApplicationInfo();
-2026-10-04T13:57:57.9334319Z                                            ^
-2026-10-04T13:57:57.9335085Z     symbol:   class AndroidAppHelper
-2026-10-04T13:57:57.9335862Z     location: package de.robv.android.xposed
-2026-10-04T13:57:57.9336597Z   4 errors
-2026-10-04T13:57:57.9337264Z 
-2026-10-04T13:57:57.9337595Z * Try:
-2026-10-04T13:57:57.9338329Z > Check your code and dependencies to fix the compilation error(s)
-2026-10-04T13:57:57.9339272Z > Run with --scan to get full insights.
-2026-10-04T13:57:57.9339833Z 
-2026-10-04T13:57:57.9340195Z BUILD FAILED in 14s
-2026-10-04T13:57:58.0133273Z ##[error]Process completed with exit code 1.
-﻿2026-10-04T13:57:58.0248291Z ##[group]Run actions/upload-artifact@v4
-2026-10-04T13:57:58.0248876Z with:
-2026-10-04T13:57:58.0249259Z   name: reports-debug
-2026-10-04T13:57:58.0249694Z   path: **/build/reports/**
-2026-10-04T13:57:58.0250150Z   if-no-files-found: ignore
-2026-10-04T13:57:58.0250603Z   retention-days: 7
-2026-10-04T13:57:58.0251010Z   compression-level: 6
-2026-10-04T13:57:58.0251505Z   overwrite: false
-2026-10-04T13:57:58.0251945Z   include-hidden-files: false
-2026-10-04T13:57:58.0252418Z env:
-2026-10-04T13:57:58.0252978Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
-2026-10-04T13:57:58.0253896Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
-2026-10-04T13:57:58.0254683Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
-2026-10-04T13:57:58.0255291Z   GRADLE_USER_HOME: /home/runner/.gradle
-2026-10-04T13:57:58.0255859Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
-2026-10-04T13:57:58.0256430Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
-2026-10-04T13:57:58.0257534Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
-2026-10-04T13:57:58.0258502Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
-2026-10-04T13:57:58.0259116Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
-2026-10-04T13:57:58.0259631Z ##[endgroup]
-2026-10-04T13:57:58.1979484Z (node:2758) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
-2026-10-04T13:57:58.1980740Z (Use `node --trace-deprecation ...` to show where the warning was created)
-2026-10
+2026-10-04T14:03:04.2137512Z Execution failed for task ':app:compileDebugJavaWithJavac'.
+2026-10-04T14:03:04.2138612Z > Compilation failed; see the compiler output below.
+2026-10-04T14:03:04.2140904Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:311: error: unreported exception InstantiationException; must be caught or declared to be thrown
+2026-10-04T14:03:04.2142875Z               return newInstance(args);
+2026-10-04T14:03:04.2143682Z                                 ^
+2026-10-04T14:03:04.2145468Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:317: error: unreported exception InstantiationException; must be caught or declared to be thrown
+2026-10-04T14:03:04.2147850Z               return newInstance(args);
+2026-10-04T14:03:04.2148676Z                                 ^
+2026-10-04T14:03:04.2149408Z   2 errors
+2026-10-04T14:03:04.2150153Z 
+2026-10-04T14:03:04.2150588Z * Try:
+2026-10-04T14:03:04.2151411Z > Check your code and dependencies to fix the compilation error(s)
+2026-10-04T14:03:04.2152437Z > Run with --scan to get full insights.
+2026-10-04T14:03:04.2153059Z 
+2026-10-04T14:03:04.2153461Z BUILD FAILED in 7s
+2026-10-04T14:03:04.3260037Z ##[error]Process completed with exit code 1.
+﻿2026-10-04T14:03:04.3326070Z ##[group]Run actions/upload-artifact@v4
+2026-10-04T14:03:04.3326418Z with:
+2026-10-04T14:03:04.3326648Z   name: reports-debug
+2026-10-04T14:03:04.3326922Z   path: **/build/reports/**
+2026-10-04T14:03:04.3327211Z   if-no-files-found: ignore
+2026-10-04T14:03:04.3327492Z   retention-days: 7
+2026-10-04T14:03:04.3327743Z   compression-level: 6
+2026-10-04T14:03:04.3328007Z   overwrite: false
+2026-10-04T14:03:04.3328257Z   include-hidden-files: false
+2026-10-04T14:03:04.3328530Z env:
+2026-10-04T14:03:04.3328869Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-04T14:03:04.3329413Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-04T14:03:04.3330277Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-10-04T14:03:04.3330644Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-10-04T14:03:04.3330972Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-10-04T14:03:04.3331305Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-10-04T14:03:04.3331782Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-10-04T14:03:04.3332329Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-10-04T14:03:04.3332686Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-10-04T14:03:04.3332985Z ##[endgroup]
+2026-10-04T14:03:04.5032483Z (node:2600) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-04T14:03:04.5033917Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-04T14:03:04.5954609Z With the provided path, there will be 1 file uploaded
+2026-10-04T14:03:04.5961964Z Artifact name is valid!
+2026-10-04T14:03:04.5963019Z Root directory input is valid!
+2026-10-04T14:03:04.8105526Z Beginning upload of artifact content to blob storage
+2026-10-04T14:03:04.8352641Z (node:2600) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-04T14:03:04.8836459Z Uploaded bytes 43131
+2026-10-04T14:03:04.9024733Z Finished uploading artifact content to blob storage!
+2026-10-04T14:03:04.9025908Z SHA256 digest of uploaded artifact zip is 5a88ea2701f04ae81018c8bb3c73862bf3d6a124569628c8bcb8187506d1b4bd
+2026-10-04T14:03:04.9027944Z Finalizing artifact upload
+2026-10-04T14:03:05.1056302Z Artifact reports-debug.zip successfully finalized. Artifact ID 11305287850
+2026-10-04T14:03:05.1057579Z Artifact reports-debug has been successfully uploaded! Final size is 43131 bytes. Artifact ID is 1
 
 === ERROR LINES ===
-2026-10-04T13:57:57.9080608Z > Task :app:compileDebugJavaWithJavac FAILED
-2026-10-04T13:57:57.9081993Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:16: error: cannot find symbol
-2026-10-04T13:57:57.9147934Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:104: error: cannot find symbol
-2026-10-04T13:57:57.9164779Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:113: error: cannot find symbol
-2026-10-04T13:57:57.9172785Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/ModuleManager.java:260: error: cannot find symbol
-2026-10-04T13:57:57.9194780Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:16: error: cannot find symbol
-2026-10-04T13:57:57.9200681Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:104: error: cannot find symbol
-2026-10-04T13:57:57.9208181Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:113: error: cannot find symbol
-2026-10-04T13:57:57.9331600Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/ModuleManager.java:260: error: cannot find symbol
-2026-10-04T13:57:57.9340201Z BUILD FAILED in 14s
-2026-10-04T13:57:57.9080601Z > Task :app:compileDebugJavaWithJavac FAILED
-2026-10-04T13:57:57.9081985Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:16: error: cannot find symbol
-2026-10-04T13:57:57.9147918Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:104: error: cannot find symbol
-2026-10-04T13:57:57.9164768Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:113: error: cannot find symbol
-2026-10-04T13:57:57.9172780Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/ModuleManager.java:260: error: cannot find symbol
-2026-10-04T13:57:57.9194774Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:16: error: cannot find symbol
-2026-10-04T13:57:57.9200393Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:104: error: cannot find symbol
-2026-10-04T13:57:57.9208171Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:113: error: cannot find symbol
-2026-10-04T13:57:57.9331591Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/ModuleManager.java:260: error: cannot find symbol
-2026-10-04T13:57:57.9340195Z BUILD FAILED in 14s
+2026-10-04T14:03:04.2021888Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:311: error: unreported exception InstantiationException; must be caught or declared to be thrown
+2026-10-04T14:03:04.2061347Z > Task :app:compileDebugJavaWithJavac FAILED
+2026-10-04T14:03:04.2091404Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:317: error: unreported exception InstantiationException; must be caught or declared to be thrown
+2026-10-04T14:03:04.2140916Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:311: error: unreported exception InstantiationException; must be caught or declared to be thrown
+2026-10-04T14:03:04.2145481Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:317: error: unreported exception InstantiationException; must be caught or declared to be thrown
+2026-10-04T14:03:04.2153466Z BUILD FAILED in 7s
+2026-10-04T14:03:04.2021843Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:311: error: unreported exception InstantiationException; must be caught or declared to be thrown
+2026-10-04T14:03:04.2060915Z > Task :app:compileDebugJavaWithJavac FAILED
+2026-10-04T14:03:04.2091389Z /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:317: error: unreported exception InstantiationException; must be caught or declared to be thrown
+2026-10-04T14:03:04.2140904Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:311: error: unreported exception InstantiationException; must be caught or declared to be thrown
+2026-10-04T14:03:04.2145468Z   /home/runner/work/DynHost/DynHost/app/src/main/java/com/example/dynhost/libxposed/LibXposedHost.java:317: error: unreported exception InstantiationException; must be caught or declared to be thrown
+2026-10-04T14:03:04.2153461Z BUILD FAILED in 7s
