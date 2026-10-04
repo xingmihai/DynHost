@@ -1,7 +1,16 @@
 ===== DL TREE =====
 .
 ./classes.txt
+./jar
 ./api-102.0.0.aar
+./aar
+./aar/proguard.txt
+./aar/META-INF
+./aar/META-INF/com
+./aar/AndroidManifest.xml
+./aar/lint.jar
+./aar/R.txt
+./aar/classes.jar
 ./api-102.0.0.jar
 ./dump.txt
 
