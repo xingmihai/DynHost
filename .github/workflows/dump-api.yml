@@ -1,0 +1,99 @@
+name: dump-libxposed-api
+
+# 临时诊断用：导出 libxposed api 102 的公开签名，推到 ci-logs 分支
+on:
+  workflow_dispatch:
+
+jobs:
+  dump:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Download artifacts
+        run: |
+          mkdir -p dl && cd dl
+          curl -sSLo api.jar  https://repo.maven.apache.org/maven2/io/github/libxposed/api/102.0.0/api-102.0.0.jar
+          curl -sSLo api.aar  https://repo.maven.apache.org/maven2/io/github/libxposed/api/102.0.0/api-102.0.0.aar
+          ls -l
+          file api.jar api.aar
+
+      - name: Extract
+        run: |
+          cd dl
+          if [ -f api.aar ]; then
+            mkdir -p aar && cd aar && unzip -oq ../api.aar && ls -R | head -20 && cd ..
+          fi
+          if [ -f api.jar ]; then
+            mkdir -p jar && cd jar && unzip -oq ../api.jar && cd ..
+          fi
+          find . -name "*.jar" -o -name "*.dex" | head
+          find . -name "*.class" | head -5
+          echo "--- class count ---"
+          find . -name "*.class" | wc -l
+
+      - name: javap dump
+        run: |
+          cd dl
+          CP=$(find . -name "*.jar" | tr '\n' ':')
+          echo "CP=$CP"
+          CLASSES=$(find . -name "*.class" | sed 's|^\./[^/]*/||; s|\.class$||; s|/|.|g' | sort)
+          echo "$CLASSES" > classes.txt
+          echo "$CLASSES" | wc -l
+          {
+            echo "===== ALL CLASSES ====="
+            cat classes.txt
+            echo
+            echo "===== SIGNATURES ====="
+          } > dump.txt
+          for c in $CLASSES; do
+            echo "----- $c -----" >> dump.txt
+            javap -classpath "$CP" -protected "$c" >> dump.txt 2>&1
+          done
+          wc -c dump.txt
+
+      - name: Publish dump
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python3 - <<'PY'
+          import base64, json, os, urllib.request
+          token = os.environ["GH_TOKEN"]
+          repo = "${{ github.repository }}"
+          api = "https://api.github.com"
+
+          def req(method, path, data=None):
+              body = json.dumps(data).encode() if data is not None else None
+              r = urllib.request.Request(api + path, data=body, method=method)
+              r.add_header("Authorization", "token " + token)
+              r.add_header("Accept", "application/vnd.github+json")
+              if body: r.add_header("Content-Type", "application/json")
+              try:
+                  with urllib.request.urlopen(r, timeout=60) as f: return json.load(f)
+              except Exception as e:
+                  print("api fail", method, path); return None
+
+          raw = open("dl/dump.txt", errors="replace").read()
+          parts = [raw[i:i+400000] for i in range(0, len(raw), 400000)]
+          main = req("GET", "/repos/%s/git/ref/heads/main" % repo)
+          req("POST", "/repos/%s/git/refs" % repo, {"ref": "refs/heads/ci-logs", "sha": main["object"]["sha"]})
+          for i, part in enumerate(parts):
+              name = "api-dump-%d.txt" % i
+              body = {"message": "ci: api dump part %d" % i,
+                      "content": base64.b64encode(part.encode()).decode(),
+                      "branch": "ci-logs"}
+              cur = req("GET", "/repos/%s/contents/%s?ref=ci-logs" % (repo, name))
+              if cur and isinstance(cur, dict) and cur.get("sha"):
+                  body["sha"] = cur["sha"]
+              req("PUT", "/repos/%s/contents/%s" % (repo, name), body)
+              print("published", name, len(part))
+          PY
