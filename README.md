@@ -109,6 +109,12 @@ cp plugin-sample/build/outputs/apk/debug/plugin-sample-debug.apk /sdcard/DynModu
 - **新增 / 删除 / 更新插件 APK** 需要软重启 zygote（`setprop ctl.restart zygote`），因为 dex 是在 zygote 启动时预读的；单纯改开关和作用域不用。
 - 插件里如果 hook 了 `android` 包本身，需要在 `dynmodule.json` 里把 `loadInZygote` 设为 `true`。
 - `minSdk 26`：`InMemoryDexClassLoader` 从 Android 8 才可用；更低版本会走落盘临时 dex 的回退路径（代码已实现，但建议直接以 26 为下限）。
+- **只支持传统 Xposed 模块**（`assets/xposed_init` + `IXposedHookLoadPackage`）。
+  新式 **libxposed** 模块（入口声明在 `META-INF/xposed/java_init.list`、入口类 extends
+  `io.github.libxposed.api.XposedModule`）**跑不起来**——它需要框架在实例化时注入
+  `XposedInterface`（`attachFramework`），宿主没有实现这套 API。
+  这类 APK 会在日志里打 `新式 libxposed 模块…DynHost 只支持 assets/xposed_init`，
+  并在管理界面标成 ⚠ 不可勾选。Xposed-Modules-Repo 上少数新模块属于这一类，绝大多数仍是传统写法。
 - 这是自定义加载器，**仅用于自有模块与调试**；用第三方 APK 当插件等同于把它的代码注入你勾选的所有 App，请只放可信 APK。
 
 ## 7. 目录结构

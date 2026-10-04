@@ -44,6 +44,8 @@ public final class ModuleManager {
 
     private static final String TAG = "DynHost";
     private static final String INIT = "xposed_init";
+    private static final String MODERN_INIT = "META-INF/xposed/java_init.list";
+    private static final String MODERN_PROP = "META-INF/xposed/module.prop";
     private static final String META = "dynmodule.json";
     private static final String CONFIG = "config.json";
     private static final int MAX_ASSET = 2 * 1024 * 1024;
@@ -119,7 +121,27 @@ public final class ModuleManager {
             // 2) 入口类
             ZipEntry init = zip.getEntry("assets/" + INIT);
             if (init == null) {
-                XposedBridge.log("[DynHost] " + apk.getName() + " has no assets/" + INIT + ", ignored");
+                // 新式 libxposed 模块：入口声明在 META-INF/xposed/，
+                // 且入口类 extends io.github.libxposed.api.XposedModule，
+                // 需要框架注入 XposedInterface 才能工作，宿主目前不支持。
+                if (zip.getEntry(MODERN_INIT) != null) {
+                    String api = "";
+                    ZipEntry prop = zip.getEntry(MODERN_PROP);
+                    if (prop != null) {
+                        String txt = new String(readAll(zip.getInputStream(prop)), "UTF-8");
+                        for (String line : txt.split("\n")) {
+                            if (line.trim().startsWith("minApiVersion=")) {
+                                api = " (minApiVersion=" + line.trim().substring(14) + ")";
+                                break;
+                            }
+                        }
+                    }
+                    XposedBridge.log("[DynHost] SKIP " + apk.getName()
+                            + ": 新式 libxposed 模块" + api + "，DynHost 只支持 assets/"
+                            + INIT + " + IXposedHookLoadPackage");
+                    return null;
+                }
+                XposedBridge.log("[DynHost] SKIP " + apk.getName() + ": 无 assets/" + INIT + "，已忽略");
                 return null;
             }
             for (String line : new String(readAll(zip.getInputStream(init)), "UTF-8").split("\n")) {

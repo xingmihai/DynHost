@@ -47,6 +47,8 @@ public class MainActivity extends Activity {
     static class Row {
         String id;
         String name;
+        /** 非空表示宿主无法加载（新式 libxosed 模块等），仅作提示 */
+        String unsupported;
         boolean enabled;
         String scope;
         CheckBox cb;
@@ -131,6 +133,13 @@ public class MainActivity extends Activity {
             row.enabled = true;
             row.scope = "";
 
+            // 只有 META-INF/xposed/java_init.list、没有 assets/xposed_init 的，
+            // 是新式 libxposed 模块，宿主加载不了，在界面上明确标出来
+            if (assetText(DIR + "/" + id, "META-INF/xposed/java_init.list") != null
+                    && assetText(DIR + "/" + id, "assets/xposed_init") == null) {
+                row.unsupported = "新式 libxposed 模块，DynHost 暂不支持";
+            }
+
             String meta = assetText(DIR + "/" + id, "assets/dynmodule.json");
             if (meta != null) {
                 try {
@@ -180,8 +189,10 @@ public class MainActivity extends Activity {
             LinearLayout line = new LinearLayout(this);
             line.setOrientation(LinearLayout.HORIZONTAL);
             r.cb = new CheckBox(this);
-            r.cb.setChecked(r.enabled);
-            r.cb.setText(r.name + "  (" + r.id + ")");
+            r.cb.setEnabled(r.unsupported == null);
+            r.cb.setChecked(r.enabled && r.unsupported == null);
+            r.cb.setText(r.name + "  (" + r.id + ")"
+                    + (r.unsupported == null ? "" : "\n⚠ " + r.unsupported));
             line.addView(r.cb, new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
 
@@ -201,6 +212,7 @@ public class MainActivity extends Activity {
             box.addView(line);
 
             r.et = new EditText(this);
+            r.et.setEnabled(r.unsupported == null);
             r.et.setHint("作用域包名，逗号分隔，如 com.tencent.mm,com.foo.*");
             r.et.setText(r.scope);
             box.addView(r.et);
