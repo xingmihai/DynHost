@@ -55,8 +55,8 @@ jobs:
             mkdir -p "$d" && unzip -oq "$j" -d "$d"
           done
           find . -name "*.class" | wc -l
-          CP=$(find . -name "*.jar" | tr '\n' ':')
-          CLASSES=$(find . -name "*.class" | sed 's|\.class$||; s|^\./||; s|/|.|g' | sort -u)
+          CP=$(find . -maxdepth 1 -type d -name 'x_*' | tr '\n' ':')$(find . -name "*.jar" | tr '\n' ':')
+          CLASSES=$(find . -path './x_*/*' -name "*.class" | sed 's|\.class$||; s|^\./||; s|^[^/]*/||; s|/|.|g' | sort -u)
           printf '%s\n' "$CLASSES" > classes.txt
           wc -l classes.txt
           {
