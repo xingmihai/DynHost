@@ -308,13 +308,21 @@ public class LibXposedHost implements XposedInterface {
         @Override
         public Object invoke(Object thisObject, Object... args)
                 throws InvocationTargetException, IllegalArgumentException, IllegalAccessException {
-            return newInstance(args);
+            try {
+                return newInstance(args);
+            } catch (InstantiationException e) {
+                throw new InvocationTargetException(e);
+            }
         }
 
         @Override
         public Object invokeSpecial(Object thisObject, Object... args)
                 throws InvocationTargetException, IllegalArgumentException, IllegalAccessException {
-            return newInstance(args);
+            try {
+                return newInstance(args);
+            } catch (InstantiationException e) {
+                throw new InvocationTargetException(e);
+            }
         }
 
         @Override
