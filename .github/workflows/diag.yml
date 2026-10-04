@@ -1,0 +1,73 @@
+name: Diagnose (temporary)
+
+# 临时诊断用：拉取最近一次失败运行的日志，推到 ci-logs 分支
+on:
+  workflow_dispatch:
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - name: Fetch last failed run log
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          python3 - <<'PY'
+          import base64, io, json, os, urllib.request, zipfile
+
+          token = os.environ["GH_TOKEN"]
+          repo = os.environ["REPO"]
+          api = "https://api.github.com"
+
+          def req(path, data=None, method=None):
+              body = json.dumps(data).encode() if data is not None else None
+              r = urllib.request.Request(api + path, data=body, method=method or ("POST" if body else "GET"))
+              r.add_header("Authorization", "token " + token)
+              r.add_header("Accept", "application/vnd.github+json")
+              if body:
+                  r.add_header("Content-Type", "application/json")
+              with urllib.request.urlopen(r, timeout=60) as f:
+                  return json.load(f)
+
+          runs = req("/repos/%s/actions/runs?per_page=5" % repo)["workflow_runs"]
+          fail = next((r for r in runs if r["conclusion"] == "failure"), None)
+          if not fail:
+              print("no failed run"); raise SystemExit(0)
+          print("failed run:", fail["id"])
+
+          raw = urllib.request.Request("%s/repos/%s/actions/runs/%d/logs" % (api, repo, fail["id"]))
+          raw.add_header("Authorization", "token " + token)
+          with urllib.request.urlopen(raw, timeout=180) as f:
+              blob = f.read()
+
+          text = ""
+          with zipfile.ZipFile(io.BytesIO(blob)) as z:
+              for n in z.namelist():
+                  if n.endswith(".txt"):
+                      text += z.read(n).decode("utf-8", "replace")
+
+          errs = [l for l in text.splitlines()
+                  if "error:" in l or "FAILED" in l or "What went wrong" in l
+                  or "Could not" in l or "Couldn't" in l or l.strip().startswith(">")]
+          out = "\n".join(errs[:200])[:20000]
+
+          main = req("/repos/%s/git/ref/heads/main" % repo)["object"]["sha"]
+          try:
+              req("/repos/%s/git/refs" % repo, {"ref": "refs/heads/ci-logs", "sha": main})
+          except Exception:
+              pass
+          body = {"message": "ci: diag log", "content": base64.b64encode(out.encode()).decode(),
+                  "branch": "ci-logs"}
+          try:
+              cur = req("/repos/%s/contents/build-fail.log?ref=ci-logs" % repo)
+              if cur.get("sha"):
+                  body["sha"] = cur["sha"]
+          except Exception:
+              pass
+          req("/repos/%s/contents/build-fail.log" % repo, body, "PUT")
+          print("published")
+          PY
