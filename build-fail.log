@@ -1,6 +1,64 @@
+=== WHAT WENT WRONG ===
+* What went wrong:
+2026-10-04T13:49:59.3067729Z Execution failed for task ':app:checkDebugAarMetadata'.
+2026-10-04T13:49:59.3068806Z > A failure occurred while executing com.android.build.gradle.internal.tasks.CheckAarMetadataWorkAction
+2026-10-04T13:49:59.3069750Z    > An issue was found when checking AAR metadata:
+2026-10-04T13:49:59.3085373Z      
+2026-10-04T13:49:59.3086421Z        1.  Dependency 'io.github.libxposed:api:102.0.0' requires libraries and applications that
+2026-10-04T13:49:59.3087349Z            depend on it to compile against version 37 or later of the
+2026-10-04T13:49:59.3088476Z            Android APIs.
+2026-10-04T13:49:59.3089351Z      
+2026-10-04T13:49:59.3089866Z            :app is currently compiled against android-34.
+2026-10-04T13:49:59.3090348Z      
+2026-10-04T13:49:59.3090789Z            Also, the maximum recommended compile SDK version for Android Gradle
+2026-10-04T13:49:59.3091389Z            plugin 8.5.2 is 34.
+2026-10-04T13:49:59.3091734Z      
+2026-10-04T13:49:59.3092177Z            Recommended action: Update this project's version of the Android Gradle
+2026-10-04T13:49:59.3092849Z            plugin to one that supports 37, then update this project to use
+2026-10-04T13:49:59.3093365Z            compileSdk of at least 37.
+2026-10-04T13:49:59.3093755Z      
+2026-10-04T13:49:59.3094146Z            Note that updating a library or application's compileSdk (which
+2026-10-04T13:49:59.3094788Z            allows newer APIs to be used) can be done separately from updating
+2026-10-04T13:49:59.3095415Z            targetSdk (which opts the app in to new runtime behavior) and
+2026-10-04T13:49:59.3096233Z            minSdk (which determines which devices the app can be installed
+2026-10-04T13:49:59.3096728Z            on).
+2026-10-04T13:49:59.3096912Z 
+2026-10-04T13:49:59.3097037Z * Try:
+2026-10-04T13:49:59.3097465Z > Run with --stacktrace option to get the stack trace.
+2026-10-04T13:49:59.3097989Z > Run with --info or --debug option to get more log output.
+2026-10-04T13:49:59.3098456Z > Run with --scan to get full insights.
+2026-10-04T13:49:59.3098983Z > Get more help at https://help.gradle.org.
+2026-10-04T13:49:59.3099278Z 
+2026-10-04T13:49:59.3099416Z BUILD FAILED in 10s
+2026-10-04T13:49:59.3713557Z ##[error]Process completed with exit code 1.
+﻿2026-10-04T13:49:59.3807247Z ##[group]Run actions/upload-artifact@v4
+2026-10-04T13:49:59.3807709Z with:
+2026-10-04T13:49:59.3808038Z   name: reports-debug
+2026-10-04T13:49:59.3808396Z   path: **/build/reports/**
+2026-10-04T13:49:59.3808759Z   if-no-files-found: ignore
+2026-10-04T13:49:59.3809120Z   retention-days: 7
+2026-10-04T13:49:59.3809476Z   compression-level: 6
+2026-10-04T13:49:59.3809812Z   overwrite: false
+2026-10-04T13:49:59.3810143Z   include-hidden-files: false
+2026-10-04T13:49:59.3810494Z env:
+2026-10-04T13:49:59.3810928Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-04T13:49:59.3811613Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-10-04T13:49:59.3812253Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-10-04T13:49:59.3812731Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-10-04T13:49:59.3813185Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-10-04T13:49:59.3813641Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-10-04T13:49:59.3814294Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-10-04T13:49:59.3815042Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-10-04T13:49:59.3815516Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-10-04T13:49:59.3816175Z ##[endgroup]
+2026-10-04T13:49:59.5275320Z (node:2355) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-04T13:49:59.5276987Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-04T13:49:59.5510199Z No files were found with the provided path: **/build/reports/**. No artifacts will be 
+
+=== ERROR LINES ===
 2026-10-04T13:49:56.9017047Z > Task :app:checkDebugAarMetadata FAILED
-2026-10-04T13:49:59.3067053Z * What went wrong:
+2026-10-04T13:49:59.3086430Z        1.  Dependency 'io.github.libxposed:api:102.0.0' requires libraries and applications that
 2026-10-04T13:49:59.3099419Z BUILD FAILED in 10s
 2026-10-04T13:49:56.9017027Z > Task :app:checkDebugAarMetadata FAILED
-2026-10-04T13:49:59.3067035Z * What went wrong:
+2026-10-04T13:49:59.3086421Z        1.  Dependency 'io.github.libxposed:api:102.0.0' requires libraries and applications that
 2026-10-04T13:49:59.3099416Z BUILD FAILED in 10s
