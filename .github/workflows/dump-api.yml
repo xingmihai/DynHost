@@ -22,10 +22,15 @@ jobs:
       - name: Download artifacts
         run: |
           mkdir -p dl && cd dl
-          curl -sSLo api.jar  https://repo.maven.apache.org/maven2/io/github/libxposed/api/102.0.0/api-102.0.0.jar
-          curl -sSLo api.aar  https://repo.maven.apache.org/maven2/io/github/libxposed/api/102.0.0/api-102.0.0.aar
+          BASE=https://repo.maven.apache.org/maven2/io/github/libxposed/api/102.0.0
+          echo "--- listing ---"
+          curl -sSL "$BASE/" | grep -o 'href="[^"]*"' | head -40 || true
+          for f in api-102.0.0.jar api-102.0.0.aar; do
+            echo "--- $f ---"
+            curl -sSLo "$f" -w "http=%{http_code} size=%{size_download}\n" "$BASE/$f"
+            file "$f" || true
+          done
           ls -l
-          file api.jar api.aar
 
       - name: Extract
         run: |
@@ -50,6 +55,9 @@ jobs:
           echo "$CLASSES" > classes.txt
           echo "$CLASSES" | wc -l
           {
+            echo "===== DL TREE ====="
+            find . -maxdepth 3 | head -40
+            echo
             echo "===== ALL CLASSES ====="
             cat classes.txt
             echo
