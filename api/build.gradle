@@ -2,7 +2,7 @@ plugins { id 'com.android.library' }
 
 android {
     namespace 'com.example.dynhost'
-    compileSdk 34
+    compileSdk 37
     defaultConfig { minSdk 26 }
     compileOptions { sourceCompatibility 17; targetCompatibility 17 }
 }

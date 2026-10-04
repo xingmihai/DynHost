@@ -2,7 +2,7 @@ plugins { id 'com.android.application' }
 
 android {
     namespace 'com.example.plugin.sample'
-    compileSdk 34
+    compileSdk 37
     defaultConfig {
         applicationId "com.example.plugin.sample"
         minSdk 26

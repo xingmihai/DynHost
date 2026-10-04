@@ -1,6 +1,12 @@
+buildscript {
+    // libxposed api 102 要求 compileSdk >= 37，AGP 8.5 最高只支持 34，
+    // 因此整体升级到支持 API 37 的 AGP / Gradle 组合
+    ext.agpVersion = '8.13.0'
+}
+
 plugins {
-    id 'com.android.application' version '8.5.2' apply false
-    id 'com.android.library'     version '8.5.2' apply false
+    id 'com.android.application' version '8.13.0' apply false
+    id 'com.android.library'     version '8.13.0' apply false
 }
 
 tasks.register('clean', Delete) {
