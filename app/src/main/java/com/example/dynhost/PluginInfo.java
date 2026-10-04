@@ -20,6 +20,12 @@ public final class PluginInfo {
     /** 作用域包名列表，支持 "com.foo.*" 通配、"*" 全部、"!pkg" 排除 */
     public final List<String> scope = new ArrayList<>();
 
+    /** 是否为新式 libxposed 模块（META-INF/xposed/java_init.list 入口） */
+    public boolean modern = false;
+
+    /** 本进程是否已发过 onModuleLoaded（新式模块专用） */
+    public boolean moduleLoaded = false;
+
     /** 是否在 zygote 阶段就实例化并调用 initZygote */
     public boolean loadInZygote = false;
 

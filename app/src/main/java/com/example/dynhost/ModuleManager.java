@@ -2,6 +2,8 @@ package com.example.dynhost;
 
 import android.os.Build;
 
+import com.example.dynhost.libxposed.LibXposedHost;
+import com.example.dynhost.libxposed.LibXposedParams;
 import com.example.dynhost.util.ScopeMatcher;
 
 import org.json.JSONArray;
@@ -27,6 +29,7 @@ import de.robv.android.xposed.IXposedHookInitPackageResources;
 import de.robv.android.xposed.IXposedHookLoadPackage;
 import de.robv.android.xposed.IXposedHookZygoteInit;
 import de.robv.android.xposed.XposedBridge;
+import io.github.libxposed.api.XposedModuleInterface;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
@@ -89,7 +92,9 @@ public final class ModuleManager {
                     XposedBridge.log("[DynHost] skip disabled: " + p.id);
                     continue;
                 }
-                if (p.loadInZygote) ensureInstances(p, ModuleManager.class.getClassLoader());
+                // 新式模块的实例必须每进程独立（要 attach 当前进程的 XposedInterface），
+                // 不能在 zygote 阶段就创建
+                if (p.loadInZygote && !p.modern) ensureInstances(p, ModuleManager.class.getClassLoader());
                 plugins.put(p.id, p);
                 XposedBridge.log("[DynHost] loaded " + p);
             } catch (Throwable t) {
@@ -99,6 +104,15 @@ public final class ModuleManager {
         }
         scanned = true;
         XposedBridge.log("[DynHost] scan done, " + plugins.size() + " plugin(s)");
+    }
+
+    /** 读一个 zip 条目，按行拆出非空、非注释的内容 */
+    private static void readEntryLines(ZipFile zip, ZipEntry entry, List<String> out)
+            throws Exception {
+        for (String line : new String(readAll(zip.getInputStream(entry)), "UTF-8").split("\n")) {
+            String c = line.trim();
+            if (!c.isEmpty() && !c.startsWith("#")) out.add(c);
+        }
     }
 
     private static PluginInfo parse(File apk) throws Exception {
@@ -120,33 +134,43 @@ public final class ModuleManager {
             }
             // 2) 入口类
             ZipEntry init = zip.getEntry("assets/" + INIT);
-            if (init == null) {
-                // 新式 libxposed 模块：入口声明在 META-INF/xposed/，
-                // 且入口类 extends io.github.libxposed.api.XposedModule，
-                // 需要框架注入 XposedInterface 才能工作，宿主目前不支持。
-                if (zip.getEntry(MODERN_INIT) != null) {
-                    String api = "";
-                    ZipEntry prop = zip.getEntry(MODERN_PROP);
-                    if (prop != null) {
-                        String txt = new String(readAll(zip.getInputStream(prop)), "UTF-8");
-                        for (String line : txt.split("\n")) {
-                            if (line.trim().startsWith("minApiVersion=")) {
-                                api = " (minApiVersion=" + line.trim().substring(14) + ")";
-                                break;
-                            }
-                        }
-                    }
-                    XposedBridge.log("[DynHost] SKIP " + apk.getName()
-                            + ": 新式 libxposed 模块" + api + "，DynHost 只支持 assets/"
-                            + INIT + " + IXposedHookLoadPackage");
+            if (init != null) {
+                readEntryLines(zip, init, p.entryClasses);
+            } else {
+                // 新式 libxposed 模块：入口声明在 META-INF/xposed/java_init.list，
+                // 入口类 extends io.github.libxposed.api.XposedModule，
+                // 由宿主实现 XposedInterface 并通过 attachFramework 注入。
+                ZipEntry modern = zip.getEntry(MODERN_INIT);
+                if (modern == null) {
+                    XposedBridge.log("[DynHost] SKIP " + apk.getName() + ": 既没有 assets/"
+                            + INIT + " 也没有 " + MODERN_INIT + "，已忽略");
                     return null;
                 }
-                XposedBridge.log("[DynHost] SKIP " + apk.getName() + ": 无 assets/" + INIT + "，已忽略");
-                return null;
-            }
-            for (String line : new String(readAll(zip.getInputStream(init)), "UTF-8").split("\n")) {
-                String c = line.trim();
-                if (!c.isEmpty() && !c.startsWith("#")) p.entryClasses.add(c);
+                p.modern = true;
+                readEntryLines(zip, modern, p.entryClasses);
+
+                ZipEntry prop = zip.getEntry(MODERN_PROP);
+                if (prop != null) {
+                    String txt = new String(readAll(zip.getInputStream(prop)), "UTF-8");
+                    for (String line : txt.split("\n")) {
+                        String t = line.trim();
+                        if (t.startsWith("minApiVersion=")) {
+                            XposedBridge.log("[DynHost] " + apk.getName()
+                                    + " 是 libxposed 模块，minApiVersion=" + t.substring(14));
+                            break;
+                        }
+                    }
+                }
+                // 没写 dynmodule.json 时，用模块自带的 scope.list / module.scope 作默认作用域
+                if (p.scope.isEmpty()) {
+                    ZipEntry scope = zip.getEntry("META-INF/xposed/scope.list");
+                    if (scope == null) scope = zip.getEntry("META-INF/xposed/module.scope");
+                    if (scope != null) {
+                        List<String> tmp = new ArrayList<>();
+                        readEntryLines(zip, scope, tmp);
+                        p.scope.addAll(tmp);
+                    }
+                }
             }
             if (p.entryClasses.isEmpty()) return null;
 
@@ -200,6 +224,25 @@ public final class ModuleManager {
             if (!ScopeMatcher.matches(p.scope, pkg)) continue;
             try {
                 ensureInstances(p, ModuleManager.class.getClassLoader());
+                if (p.modern) {
+                    // 新式 libxposed 模块：每进程一次 onModuleLoaded，随后 onPackageLoaded
+                    Object loaded = LibXposedParams.moduleLoaded(
+                            isSystemServer(lpparam), lpparam.processName);
+                    Object pkgLoaded = LibXposedParams.packageLoaded(
+                            pkg, safeAppInfo(), lpparam.isFirstApplication, lpparam.classLoader);
+                    for (Object inst : p.instances) {
+                        if (!p.moduleLoaded) {
+                            LibXposedParams.invokeLifecycle(inst,
+                                    XposedModuleInterface.ModuleLoadedParam.class,
+                                    "onModuleLoaded", loaded);
+                        }
+                        LibXposedParams.invokeLifecycle(inst,
+                                XposedModuleInterface.PackageLoadedParam.class,
+                                "onPackageLoaded", pkgLoaded);
+                    }
+                    p.moduleLoaded = true;
+                    continue;
+                }
                 for (Object inst : p.instances) {
                     if (inst instanceof IXposedHookLoadPackage) {
                         ((IXposedHookLoadPackage) inst).handleLoadPackage(lpparam);
@@ -209,6 +252,14 @@ public final class ModuleManager {
                 XposedBridge.log("[DynHost] plugin " + p.id + " error in " + pkg);
                 XposedBridge.log(t);
             }
+        }
+    }
+
+    private static android.content.pm.ApplicationInfo safeAppInfo() {
+        try {
+            return de.robv.android.xposed.AndroidAppHelper.currentApplicationInfo();
+        } catch (Throwable t) {
+            return null;
         }
     }
 
@@ -242,6 +293,16 @@ public final class ModuleManager {
         List<Object> list = new ArrayList<>();
         for (String cls : p.entryClasses) {
             Class<?> c = Class.forName(cls, false, loader);
+            if (p.modern) {
+                // 新式模块：先 new 出来（构造函数里不能碰 API），
+                // 再把宿主实现的 XposedInterface 注入进去
+                Constructor<?> ctor = c.getDeclaredConstructor();
+                ctor.setAccessible(true);
+                Object inst = ctor.newInstance();
+                LibXposedParams.attach(inst, new LibXposedHost(p.id), null);
+                list.add(inst);
+                continue;
+            }
             Constructor<?> ctor = c.getDeclaredConstructor();
             ctor.setAccessible(true);
             Object inst = ctor.newInstance();
